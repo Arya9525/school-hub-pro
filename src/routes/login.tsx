@@ -39,7 +39,8 @@ function LoginPage() {
     userId: "SCH0004-A001",
     password: "demo1234",
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  type Errors = { schoolCode?: string; userId?: string; password?: string };
+  const [errors, setErrors] = useState<Errors>({});
 
   const pickRole = (next: Role) => {
     setRole(next);
@@ -52,7 +53,7 @@ function LoginPage() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const next: Record<string, string> = {};
+    const next: Errors = {};
     if (!form.schoolCode.trim()) next.schoolCode = "School code is required";
     if (!form.userId.trim()) next.userId = "User ID is required";
     if (form.password.length < 4) next.password = "Minimum 4 characters";
