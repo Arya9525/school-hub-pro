@@ -153,9 +153,9 @@ export const classes: ClassRow[] = Array.from({ length: 12 }, (_, i) => {
     id: `cls-${n}`,
     label: `Class ${n}`,
     sections: Array.from({ length: count }, (_, j) => ({
-      name: ["A", "B", "C"][j],
+      name: ["A", "B", "C"][j]!,
       students: 26 + ((n * 7 + j * 5) % 12),
-      teacher: teachers[(n + j) % teachers.length],
+      teacher: teachers[(n + j) % teachers.length]!,
     })),
   };
 });
@@ -187,6 +187,17 @@ export const feeStructures: FeeStructure[] = [
 
 export const baseFeeFor = (className: string, year = "2026-27") =>
   feeStructures.find((f) => f.className === className && f.year === year)?.amount ?? 20000;
+
+const parentNamesSeed = [
+  "Raj Kumar",
+  "Ramesh Mehta",
+  "Sunita Verma",
+  "Harpreet Singh",
+  "Anita Nair",
+  "Vikram Gupta",
+  "Suresh Chauhan",
+  "Kavita Iyer",
+];
 
 export type Student = {
   id: string;
@@ -239,12 +250,12 @@ export const students: Student[] = studentNames.map((name, i) => {
     admissionNo: `ADM-2026-${String(101 + i).padStart(4, "0")}`,
     name,
     className,
-    section: ["A", "B", "C"][i % 3],
+    section: ["A", "B", "C"][i % 3]!,
     parentId: `par-${parentIdx + 1}`,
-    parentName: parentNamesSeed[parentIdx],
+    parentName: parentNamesSeed[parentIdx]!,
     admissionDate: `${String((i % 27) + 1).padStart(2, "0")} Jul 2026`,
     fee: baseFeeFor(className),
-    status: statuses[i % 3],
+    status: statuses[i % 3]!,
   };
 });
 
@@ -260,17 +271,6 @@ export type Parent = {
   createdAt: string;
 };
 
-const parentNamesSeed = [
-  "Raj Kumar",
-  "Ramesh Mehta",
-  "Sunita Verma",
-  "Harpreet Singh",
-  "Anita Nair",
-  "Vikram Gupta",
-  "Suresh Chauhan",
-  "Kavita Iyer",
-];
-
 export const parents: Parent[] = parentNamesSeed.map((name, i) => ({
   id: `par-${i + 1}`,
   username: `SCH0004-P${String(451 + i).padStart(4, "0")}`,
@@ -284,7 +284,7 @@ export const parents: Parent[] = parentNamesSeed.map((name, i) => ({
     "Shyam Gupta",
     "Ram Singh",
     "Krishnan Iyer",
-  ][i],
+  ][i]!,
   village: [
     "Dasna",
     "Modinagar",
@@ -294,9 +294,9 @@ export const parents: Parent[] = parentNamesSeed.map((name, i) => ({
     "Babugarh",
     "Kharkhoda",
     "Dhaulana",
-  ][i],
+  ][i]!,
   phone: `+91 9${String(80000000 + i * 137911).slice(0, 9)}`,
-  email: i % 3 === 0 ? "" : `${name.split(" ")[0].toLowerCase()}${i}@gmail.com`,
+  email: i % 3 === 0 ? "" : `${name.split(" ")[0]!.toLowerCase()}${i}@gmail.com`,
   status: "Active",
   createdAt: `${String((i % 27) + 1).padStart(2, "0")} Jun 2026`,
 }));
